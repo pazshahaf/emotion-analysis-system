@@ -1,0 +1,21 @@
+# requirements.txt - Python Dependencies for Emotion Analysis System
+
+# Core Web Framework
+flask>=3.0.0                    # Web framework for API endpoints
+flask-cors>=4.0.0               # Cross-Origin Resource Sharing support
+
+# Machine Learning and Computer Vision
+tensorflow>=2.20.0              # Deep learning framework for emotion recognition
+opencv-python>=4.8.0            # Computer vision library for image processing
+numpy>=1.24.0                   # Numerical computing library
+pandas>=2.0.0                   # Data manipulation and analysis
+
+# Image Processing
+pillow>=10.0.0                  # Python Imaging Library for image handling
+
+# API Integration and Configuration
+requests>=2.31.0                # HTTP library for LLaMA API calls
+python-dotenv>=1.0.0            # Environment variable management from .env files
+
+# Installation Instructions:
+# pip install -r requirements.txt
