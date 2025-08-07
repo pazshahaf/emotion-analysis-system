@@ -1,148 +1,50 @@
-# מערכת ניתוח רגשות בזמן אמת לראיונות
+# 🎭 Emotion Analysis System for Job Interviews
 
-מערכת זו מאפשרת צילום מסך בזמן אמת, ניתוח רגשות באמצעות מודל למידת מכונה, והצעת שאלות למראיין בהתאם לרגשות שזוהו אצל המרואיין.
+This system analyzes a candidate's facial emotions during a job interview in real-time and suggests personalized follow-up questions for the interviewer, based on the detected emotional state.
 
-## מאפיינים עיקריים
+---
 
-- צילום מסך בזמן אמת
-- ניתוח רגשות באמצעות מודל עמוק מבוסס ResNet50
-- הצעת שאלות מותאמות למראיין בהתאם לרגשות המזוהים
-- תצוגת היסטוריית ניתוח ואפשרות לשינוי תדירות הצילום
-- ממשק משתמש נוח בעברית
+## 🧠 Project Overview
 
-## דרישות מערכת
+- Real-time facial emotion recognition using a deep learning model (e.g. ResNet50 or custom CNN)
+- Smart question suggestion module to guide interviewers
+- Flask backend + React frontend
+- Option to export emotion logs to file (CSV/Excel)
 
-- Python 3.8+
-- Node.js 14+
-- npm או yarn
+---
 
-## הוראות התקנה
+## 🧰 Technologies Used
 
-### צד שרת (Backend)
+- **Frontend**: React.js
+- **Backend**: Flask (Python)
+- **AI/ML**: TensorFlow / Keras, OpenCV
+- **Visualization**: Grad-CAM, Matplotlib
+- **Data Handling**: NumPy, Pandas, Pillow
+- **Others**: Flask-CORS, dotenv, requests
 
-1. התקן את סביבת Python וירטואלית:
+---
 
+### 🖥️ Terminal 1: Backend Setup
+
+#### First Time (setup virtual environment):
 ```bash
-# יצירת סביבה וירטואלית
-python -m venv venv
-
-# הפעלת הסביבה
-# Windows
-venv\Scripts\activate
-# Linux/Mac
+cd emotion-analysis-system/backend
+python3 -m venv venv
 source venv/bin/activate
-```
-
-2. התקן את הספריות הדרושות:
-
-```bash
-pip install -r requirements.txt
-```
-
-3. העתק את קובץ המודל `model_resnet50.h5` לספריית הפרויקט הראשית.
-
-### צד לקוח (Frontend)
-
-1. היכנס לספריית `frontend` (צור את הספרייה אם היא אינה קיימת):
-
-```bash
-mkdir -p frontend
-cd frontend
-```
-
-2. אתחל פרויקט React חדש (אם לא קיים):
-
-```bash
-npx create-react-app .
-```
-
-3. העתק את קבצי הקוד והעיצוב לספריות המתאימות:
-   - העתק את תוכן קובץ `App.js` לקובץ `src/App.js`
-   - העתק את תוכן קובץ `App.css` לקובץ `src/App.css`
-   - העתק את תוכן קובץ `package.json` לקובץ `package.json`
-
-4. התקן את התלויות:
-
-```bash
-npm install
-# או
-yarn install
-```
-
-## הרצת המערכת
-
-### הפעלת השרת
-
-1. מתוך הספרייה הראשית של הפרויקט, הפעל את הסביבה הוירטואלית (אם היא לא פעילה):
-
-```bash
-# Windows
-venv\Scripts\activate
-# Linux/Mac
+pip install flask flask-cors opencv-python numpy pandas pillow requests python-dotenv tensorflow
+Every Time You Run:
+cd emotion-analysis-system/backend
 source venv/bin/activate
-```
-
-2. הפעל את השרת:
-
-```bash
 python app.py
-```
-
-השרת יופעל בכתובת `http://localhost:5000`.
-
-### הפעלת ממשק המשתמש
-
-1. היכנס לספריית `frontend`:
-
-```bash
-cd frontend
-```
-
-2. הפעל את שרת הפיתוח:
-
-```bash
+Terminal 2: Frontend Setup
+First Time Only:
+cd emotion-analysis-system/frontend
+npm install
+Every Time You Run:
+cd emotion-analysis-system/frontend
 npm start
-# או
-yarn start
-```
 
-הממשק יופעל בכתובת `http://localhost:3000`.
-
-## שימוש במערכת
-
-1. היכנס לכתובת `http://localhost:3000` בדפדפן.
-2. לחץ על כפתור "התחל צילום מסך" ובחר את החלון או הכרטיסייה שברצונך לצלם (לדוגמה: חלון שיחת וידאו של ראיון).
-3. המערכת תצלם את המסך בפרקי זמן קבועים (ניתן לשנות את המרווח) ותבצע ניתוח רגשות.
-4. בהתאם לרגשות שזוהו, המערכת תציע שאלות שיכולות לעזור למראיין.
-5. היסטוריית הניתוח תישמר במהלך השימוש במערכת.
-
-## הערות חשובות
-
-- עבור שימוש בייצור (production), יש להגדיר שרת HTTPS כדי לאפשר גישה לפונקציונליות צילום המסך.
-- יש להתאים את הגדרות ה-CORS בקובץ השרת בהתאם לסביבת הייצור.
-- כדי למנוע בעיות ביצועים, יש לוודא שהמחשב המריץ את המערכת עומד בדרישות המינימליות עבור ניתוח תמונות ב-TensorFlow.
-
-## מבנה הפרויקט
-
-```
-/
-├── app.py                  # קוד השרת (Flask)
-├── model_resnet50.h5       # מודל למידת מכונה מאומן
-├── requirements.txt        # דרישות Python
-└── frontend/              # קוד צד לקוח (React)
-    ├── package.json
-    ├── public/
-    └── src/
-        ├── App.js
-        ├── App.css
-        └── ...
-```
-
-## רישיון והודאות
-
-הפרויקט מבוסס על קוד המתואר בקובץ הבסיס ומשתמש בספריות הבאות:
-- TensorFlow
-- OpenCV
-- Flask
-- React
-- וספריות נוספות המופיעות בקובץ requirements.txt
+Contact & Credits
+Developed by Paz Shahaf and Sapir Ashuruv
+GitHub: @pazshahaf
+https://github.com/pazshahaf/emotion-analysis-system.git
