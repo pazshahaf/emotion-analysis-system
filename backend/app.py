@@ -56,7 +56,7 @@ def load_emotion_model():
     
     try:
         print(f"Attempting to load model from: {MODEL_PATH}")
-
+        model = load_model(MODEL_PATH)
         print(f"Model loaded successfully from: {MODEL_PATH}")
         return model
     except Exception as e:
@@ -66,8 +66,7 @@ def load_emotion_model():
         for alt_path in ALTERNATE_MODEL_PATHS:
             try:
                 print(f"Trying alternative path: {alt_path}")
-                with tf.keras.utils.custom_object_scope(custom_objects):
-                    model = load_model(alt_path)
+                model = load_model(alt_path)
                 print(f"Model loaded successfully from: {alt_path}")
                 return model
             except Exception as alt_e:
