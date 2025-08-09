@@ -16,6 +16,7 @@ import time
 import requests
 import random
 from dotenv import load_dotenv
+import traceback
 
 # Load environment variables
 load_dotenv()
@@ -492,7 +493,6 @@ def analyze_screenshot():
         return response
     
     except Exception as e:
-        import traceback
         print("Error in image analysis:")
         traceback.print_exc()
         error_response = jsonify({'error': str(e)})
@@ -532,5 +532,4 @@ if __name__ == '__main__':
         app.run(debug=True, host='0.0.0.0', port=5001)
     except Exception as e:
         print(f"Critical error: {str(e)}")
-        import traceback
         traceback.print_exc()
