@@ -30,6 +30,14 @@ LLAMA_API_KEY = os.getenv("LLAMA_API_KEY")
 LLAMA_TEMPERATURE = float(os.getenv("LLAMA_TEMPERATURE", "0.7"))
 LLAMA_MAX_TOKENS = int(os.getenv("LLAMA_MAX_TOKENS", "100"))
 
+# Custom layer definition
+class StandardizedConv2DWithOverride(Conv2D):
+    def __init__(self, **kwargs):
+        super(StandardizedConv2DWithOverride, self).__init__(**kwargs)
+
+# Registering the custom layer
+custom_objects = {'StandardizedConv2DWithOverride': StandardizedConv2DWithOverride}
+
 # Model configuration
 MODEL_PATH = "model_resnet50.h5"
 model = None
@@ -38,7 +46,8 @@ model = None
 ALTERNATE_MODEL_PATHS = [
     "./model_resnet50.h5",
     "../model_resnet50.h5", 
-    "backend/model_resnet50.h5"
+    "backend/model_resnet50.h5",
+    "./backend/model_resnet50.h5"
 ]
 
 # Interview state management
@@ -57,7 +66,8 @@ def load_emotion_model():
     
     try:
         print(f"Attempting to load model from: {MODEL_PATH}")
-        model = load_model(MODEL_PATH)
+        with tf.keras.utils.custom_object_scope(custom_objects):
+            model = load_model(MODEL_PATH)
         print(f"Model loaded successfully from: {MODEL_PATH}")
         return model
     except Exception as e:
